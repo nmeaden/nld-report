@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsenal vs Manchester City — Premier League Era 1992–2025</title>
+<style>
+  :root {
+    --red: #EF0107; --red-dark: #b50005; --city: #6CABDD; --city-dark: #1c6fad;
+    --bg: #0d0d1a; --bg2: #13132a; --bg3: #1a1a35; --text: #e8e8f0;
+    --muted: #9090b0; --border: #2a2a4a; --gold: #f0c040; --green: #4caf50;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; line-height:1.6; }
+  a { color:var(--city); text-decoration:none; }
+
+  /* ── HEADER ── */
+  .hero { background:linear-gradient(135deg,#0d0d1a 0%,#1a0a0a 50%,#0a0d1a 100%);
+    border-bottom:2px solid var(--border); padding:60px 24px 40px; text-align:center; }
+  .hero-badges { display:flex; justify-content:center; gap:24px; margin-bottom:24px; flex-wrap:wrap; }
+  .badge { background:var(--bg3); border:1px solid var(--border); border-radius:8px;
+    padding:8px 20px; font-size:13px; color:var(--muted); }
+  .hero h1 { font-size:clamp(24px,5vw,46px); font-weight:800; letter-spacing:-1px;
+    background:linear-gradient(90deg,var(--red) 30%,#fff 50%,var(--city) 70%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; }
+  .hero-sub { font-size:16px; color:var(--muted); max-width:600px; margin:0 auto; }
+
+  /* ── NAV / TOC ── */
+  .toc { background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+    padding:24px; max-width:860px; margin:32px auto; }
+  .toc h3 { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px; }
+  .toc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px; }
+  .toc-item { background:var(--bg3); border:1px solid var(--border); border-radius:8px;
+    padding:10px 14px; font-size:13px; color:var(--text); transition:border-color .2s; }
+  .toc-item:hover { border-color:var(--red); }
+
+  /* ── LAYOUT ── */
+  .container { max-width:1000px; margin:0 auto; padding:0 24px 60px; }
+  section { margin:48px 0; }
+  h2 { font-size:clamp(20px,3vw,28px); font-weight:700; color:var(--text);
+    padding-bottom:12px; border-bottom:2px solid var(--border); margin-bottom:24px; }
+  h3 { font-size:18px; font-weight:600; color:var(--muted); margin:24px 0 12px; }
+  p { color:var(--text); margin-bottom:12px; }
+
+  /* ── STAT CARDS ── */
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media(max-width:600px){ .stats-grid{ grid-template-columns:1fr; } }
+  .stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+    padding:24px; text-align:center; }
+  .stat-card .big { font-size:clamp(28px,5vw,48px); font-weight:800; line-height:1; }
+  .stat-card .label { font-size:13px; color:var(--muted); margin-top:6px; }
+  .red-card .big  { color:var(--red); }
+  .draw-card .big { color:var(--gold); }
+  .city-card .big { color:var(--city); }
+
+  /* ── CHART ── */
+  .chart-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin:20px 0; overflow:hidden; }
+  .chart-wrap img { width:100%; border-radius:8px; display:block; }
+  .chart-cap { text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+
+  /* ── CALLOUT ── */
+  .callout { background:var(--bg2); border-left:4px solid var(--gold); border-radius:0 12px 12px 0;
+    padding:16px 20px; margin:16px 0; }
+  .callout.red   { border-color:var(--red); }
+  .callout.city  { border-color:var(--city); }
+  .callout.green { border-color:var(--green); }
+  .callout strong { color:var(--gold); }
+  .callout.red  strong { color:var(--red); }
+  .callout.city strong { color:var(--city); }
+  .callout.green strong { color:var(--green); }
+
+  /* ── MATCH TABLE ── */
+  .tbl-wrap { overflow-x:auto; border-radius:12px; border:1px solid var(--border); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead th { background:var(--bg3); color:var(--muted); padding:10px 12px;
+    text-align:left; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.5px; }
+  tbody tr:nth-child(even) { background:var(--bg2); }
+  tbody tr:nth-child(odd)  { background:var(--bg); }
+  tbody tr:hover { background:var(--bg3); }
+  tbody td { padding:9px 12px; border-bottom:1px solid var(--border); }
+  .win-a { color:var(--red); font-weight:700; }
+  .win-c { color:var(--city); font-weight:700; }
+  .draw  { color:var(--gold); font-weight:600; }
+
+  /* ── ERA TABLE ── */
+  .era-grid { display:grid; gap:12px; }
+  .era-row { display:flex; background:var(--bg2); border:1px solid var(--border);
+    border-radius:10px; overflow:hidden; }
+  .era-label { background:var(--bg3); padding:12px 16px; min-width:120px;
+    font-size:12px; color:var(--muted); display:flex; align-items:center; font-weight:600; }
+  .era-content { padding:12px 16px; flex:1; }
+  .era-content strong { color:var(--text); }
+  .era-content .record { font-size:13px; color:var(--muted); margin-top:4px; }
+
+  /* ── FOOTER ── */
+  footer { border-top:1px solid var(--border); padding:32px 24px; text-align:center;
+    color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badges">
+    <span class="badge">⚽ Premier League Era</span>
+    <span class="badge">📅 1992–2025</span>
+    <span class="badge">🔢 57 Matches</span>
+    <span class="badge">🥅 157 Goals</span>
+    <span class="badge">📊 Data to 21 Sep 2025</span>
+  </div>
+  <h1>Arsenal vs Manchester City</h1>
+  <p class="hero-sub">The defining Premier League rivalry of the 2020s — from Arsenal's early dominance to City's Abu Dhabi era, and the title battles that have gripped English football since 2022.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>Contents</h3>
+  <div class="toc-grid">
+    <a class="toc-item" href="#overview">📊 Overview & H2H</a>
+    <a class="toc-item" href="#charts">📈 Charts</a>
+    <a class="toc-item" href="#eras">🕰️ Era Analysis</a>
+    <a class="toc-item" href="#iconic">💥 Iconic Matches</a>
+    <a class="toc-item" href="#records">📋 Records</a>
+    <a class="toc-item" href="#managers">👔 Manager Rivalry</a>
+    <a class="toc-item" href="#shared">🔄 Shared Players</a>
+    <a class="toc-item" href="#history">📜 Full History</a>
+    <a class="toc-item" href="#future">🔮 What's Next</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <h2>📊 Overview & Head-to-Head</h2>
+  <p>57 Premier League meetings since August 1992. Arsenal hold the all-time PL edge — but the picture is far more nuanced. The first 15 years belonged emphatically to Arsenal; the following 15 swung decisively to City; the last three have been fiercely contested between genuine title rivals.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card red-card">
+      <div class="big">25</div>
+      <div class="label">Arsenal wins</div>
+    </div>
+    <div class="stat-card draw-card">
+      <div class="big">13</div>
+      <div class="label">Draws</div>
+    </div>
+    <div class="stat-card city-card">
+      <div class="big">19</div>
+      <div class="label">Man City wins</div>
+    </div>
+    <div class="stat-card red-card">
+      <div class="big">82</div>
+      <div class="label">Arsenal goals</div>
+    </div>
+    <div class="stat-card draw-card">
+      <div class="big">+7</div>
+      <div class="label">Arsenal goal diff</div>
+    </div>
+    <div class="stat-card city-card">
+      <div class="big">75</div>
+      <div class="label">Man City goals</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARTS -->
+<section id="charts">
+  <h2>📈 Charts & Analysis</h2>
+
+  <h3>Result Distribution</h3>
+  <div class="chart-wrap">
+    <img src="https://raw.githubusercontent.com/nmeaden/nld-report/master/city_chart1_outcomes.png" alt="Result distribution donut">
+    <p class="chart-cap">Arsenal 43.9% wins · 22.8% draws · Man City 33.3% wins — PL era, 57 matches</p>
+  </div>
+
+  <h3>Goals Scored</h3>
+  <div class="chart-wrap">
+    <img src="https://raw.githubusercontent.com/nmeaden/nld-report/master/city_chart2_goals.png" alt="Goals breakdown">
+    <p class="chart-cap">Arsenal marginally ahead overall (82–75), but City were more prolific from 2009 onwards</p>
+  </div>
+
+  <h3>Derby Momentum — Cumulative Points</h3>
+  <div class="chart-wrap">
+    <img src="https://raw.githubusercontent.com/nmeaden/nld-report/master/city_chart3_momentum.png" alt="Cumulative points">
+    <p class="chart-cap">Arsenal's early dominance built a large buffer that City eroded — and nearly erased — during their 2016–2022 peak. Arsenal's recent resurgence has pulled them clear again. Final: Arsenal 88pts vs City 70pts.</p>
+  </div>
+</section>
+
+<!-- ERA ANALYSIS -->
+<section id="eras">
+  <h2>🕰️ Era Analysis</h2>
+
+  <div class="era-grid">
+    <div class="era-row">
+      <div class="era-label">1992–96<br>Early PL</div>
+      <div class="era-content">
+        <strong>Arsenal utterly dominant</strong>
+        <div class="record">W6 D2 L0 · 8 games · City struggled in the top flight before relegation in 1996. Arsenal won all six decisive games, conceding just 3 goals. City scored one PL goal vs Arsenal in four seasons — a 1-2 defeat at Highbury.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2000–08<br>Arsenal's Peak</div>
+      <div class="era-content">
+        <strong>Arsenal continue to dominate</strong>
+        <div class="record">W11 D1 L2 · 14 games · The Invincibles era and beyond. City returned to the PL (briefly in 2000-01, then from 2002 onwards), and Arsenal hammered them 9-0 across two games on their return. The 5-3 in Feb 2003 and back-to-back Invincibles wins complete a dominant stretch.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2008–16<br>Transition</div>
+      <div class="era-content">
+        <strong>Power gradually shifting to City</strong>
+        <div class="record">W4 D4 L8 · 16 games · The Abu Dhabi takeover in 2008 transformed City. The Adebayor celebration game (Sep 2009, 4-2), the 6-3 demolition (Dec 2013), and City's first title in 44 years (2011-12) mark City's rise. Arsenal still competitive but the balance tips.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2016–22<br>City Dominant</div>
+      <div class="era-content">
+        <strong>Guardiola era — City's zenith</strong>
+        <div class="record">W0 D0 L12 · 12 games · Arsenal won zero PL points against City across six seasons. City outscored Arsenal 27-2 in their home games during this stretch. The 5-0 at the Etihad (Aug 2021) summed up Arsenal's helplessness. City won four PL titles.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2022–25<br>Title Rivals</div>
+      <div class="era-content">
+        <strong>Arsenal back at the table</strong>
+        <div class="record">W4 D3 L3 · 10 games (incl. 25/26) · Arsenal ended the 12-game winless run with a 1-0 win in Oct 2023 — the first PL win since Dec 2015. The 5-1 in Feb 2025 was Arsenal's biggest win in the modern era. Arsenal led both the 2022-23 and 2023-24 title races before City pipped them. The pendulum is swinging back.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ICONIC MATCHES -->
+<section id="iconic">
+  <h2>💥 Iconic Matches</h2>
+
+  <div class="callout red">
+    <strong>Oct 2000 · Highbury · Arsenal 5–0 Manchester City</strong><br>
+    Arsenal's biggest home win in this fixture. City had just been promoted back to the PL for the first time since 1996. Completely outclassed — Thierry Henry, Robert Pires and Sylvain Wiltord among the scorers.
+  </div>
+
+  <div class="callout red">
+    <strong>Feb 2003 · Maine Road · Man City 1–5 Arsenal</strong><br>
+    The last game ever played at Maine Road. Arsenal's biggest away win in the fixture. City's final match at their historic ground ended in humiliation. Henry was imperious.
+  </div>
+
+  <div class="callout city">
+    <strong>Sep 2009 · City of Manchester Stadium · Man City 4–2 Arsenal</strong><br>
+    Emmanuel Adebayor — sold from Arsenal that summer — scored and ran the entire length of the pitch to celebrate in front of the Arsenal fans. One of the most provocative moments in this fixture's history. City's first major statement of post-takeover intent.
+  </div>
+
+  <div class="callout city">
+    <strong>Dec 2013 · Etihad Stadium · Man City 6–3 Arsenal</strong><br>
+    The record winning margin in this PL fixture and the most goals ever in a single match between the two sides. Aguero, Yaya Touré and Samir Nasri (ex-Arsenal) among the scorers. Arsenal had been top of the league going in.
+  </div>
+
+  <div class="callout">
+    <strong>Feb 2018 · Wembley · Arsenal 0–3 Manchester City (EFL Cup Final)</strong><br>
+    The first competitive cup final between the clubs. City were clinical — Agüero, Kompany and David Silva. Arsenal were outclassed. Days later City beat Arsenal 3-0 in the league. Wenger's last season ended without silverware.
+  </div>
+
+  <div class="callout city">
+    <strong>Aug 2021 · Etihad Stadium · Man City 5–0 Arsenal</strong><br>
+    Granit Xhaka sent off after 35 minutes. Completely one-sided. Arsenal's worst result in this fixture in the modern era. At this point City had won 11 consecutive PL meetings. Arsenal had not won a PL game at City since 2015.
+  </div>
+
+  <div class="callout green">
+    <strong>Oct 2023 · Emirates Stadium · Arsenal 1–0 Manchester City</strong><br>
+    Gabriel Martinelli's 86th-minute deflected shot ended Arsenal's 12-game PL winless run against City (dating back to December 2015). A statement result in the middle of a genuine title challenge. The first PL win for Arsenal against City in eight years.
+  </div>
+
+  <div class="callout red">
+    <strong>Feb 2025 · Emirates Stadium · Arsenal 5–1 Manchester City</strong><br>
+    Arsenal's biggest win against City in the modern era. Myles Lewis-Skelly scored his first senior goal to make it 3-1. City were in freefall. A moment that crystalised how much the balance of power has shifted in Arteta's favour.
+  </div>
+</section>
+
+<!-- RECORDS -->
+<section id="records">
+  <h2>📋 Records & Milestones</h2>
+
+  <h3>Biggest Wins</h3>
+  <ul style="list-style:none;display:grid;gap:8px">
+    <li class="callout red" style="padding:10px 14px"><strong>Arsenal 5–0 Man City</strong> — Highbury, Oct 2000 (Arsenal's biggest PL home win)</li>
+    <li class="callout city" style="padding:10px 14px"><strong>Man City 6–3 Arsenal</strong> — Etihad, Dec 2013 (record City win; most goals in a single match)</li>
+    <li class="callout red" style="padding:10px 14px"><strong>Man City 1–5 Arsenal</strong> — Maine Road, Feb 2003 (Arsenal's biggest PL away win)</li>
+    <li class="callout city" style="padding:10px 14px"><strong>Man City 5–0 Arsenal</strong> — Etihad, Aug 2021 (City's joint biggest win)</li>
+    <li class="callout red" style="padding:10px 14px"><strong>Arsenal 5–1 Man City</strong> — Emirates, Feb 2025 (Arsenal's biggest win in Guardiola era)</li>
+  </ul>
+
+  <h3>Winning Streaks</h3>
+  <div class="callout red">
+    <strong>Arsenal:</strong> 8 consecutive PL wins (1992–2008 overall; in the early PL era Arsenal went long stretches unbeaten). Notable 4-game winning run in 2000-04 era.
+  </div>
+  <div class="callout city">
+    <strong>City:</strong> 12 consecutive PL games without an Arsenal win (Apr 2016–Oct 2023) — the longest such streak in this fixture's history. Included 11 City wins and 1 draw.
+  </div>
+
+  <h3>Goals Record</h3>
+  <div class="callout">
+    <strong>Most goals in a single match:</strong> 9 — Man City 6–3 Arsenal (Dec 2013).<br>
+    <strong>Most Arsenal goals in a single match:</strong> 5 — both home (Oct 2000) and away (Feb 2003).<br>
+    <strong>Most City goals in a single match:</strong> 6 — Dec 2013.
+  </div>
+
+  <h3>City's Absence from the PL</h3>
+  <div class="callout city">
+    Man City were relegated from the Premier League after <strong>1995–96</strong> and missed four seasons (1996–2000). They returned for <strong>2000–01</strong> but were relegated again, missing <strong>2001–02</strong>. From 2002-03 onwards they have been a permanent PL fixture. Their 9 seasons of absence means the fixture has fewer matches than most top-6 rivalries.
+  </div>
+</section>
+
+<!-- MANAGER RIVALRY -->
+<section id="managers">
+  <h2>👔 The Manager Rivalry: Arteta vs Guardiola</h2>
+
+  <p>The current incarnation of this rivalry has a remarkable backstory. Pep Guardiola and Mikel Arteta both came through Barcelona's La Masia academy — Arteta's debut for Barcelona B was as a substitute for Guardiola, whose career was winding down. They stayed in touch for decades.</p>
+
+  <p>When Guardiola joined City in 2016, he appointed Arteta as his assistant coach. Arteta worked alongside Guardiola for three years, winning two PL titles, an FA Cup and two League Cups. In December 2019, Arteta left to become Arsenal head coach.</p>
+
+  <div class="callout green">
+    <strong>"I would prefer to do it with someone else, to be fair. I want the best for him, genuinely, and when you are challenging with someone like this and something comes in-between that, it's a strange feeling."</strong><br>
+    <em>— Mikel Arteta on competing against Pep Guardiola, 2023</em>
+  </div>
+
+  <h3>Guardiola vs Arsenal (all PL)</h3>
+  <div class="era-grid">
+    <div class="era-row">
+      <div class="era-label">2016–19<br>Wenger/Emery</div>
+      <div class="era-content">
+        <strong>Guardiola wins every PL meeting</strong>
+        <div class="record">Arsenal's Wenger era ended, Emery couldn't stop City either. 6 meetings, 6 City wins.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2019–23<br>Arteta (early)</div>
+      <div class="era-content">
+        <strong>City still dominant — but Arsenal improving</strong>
+        <div class="record">Arteta's first four seasons: 0W 0D 8L in PL. City outscored Arsenal 20-3 in league games. Arsenal fighting to get back to competing.</div>
+      </div>
+    </div>
+    <div class="era-row">
+      <div class="era-label">2023–25<br>Arteta (mature)</div>
+      <div class="era-content">
+        <strong>The pendulum swings</strong>
+        <div class="record">From Oct 2023: W2 D3 L0. Arsenal beat City 1-0, drew 0-0 away (ending City's 58-game home scoring streak), won 5-1 at home, drew 2-2 at the Etihad (late Stones equaliser in 98th min), drew 1-1 at home. The rivalry is now genuinely even.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARED PLAYERS -->
+<section id="shared">
+  <h2>🔄 Players Who've Worn Both Shirts</h2>
+  <p>The pipeline between Arsenal and City — largely one-directional until recently — has been central to the rivalry's narrative.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Player</th><th>Arsenal</th><th>Man City</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Emmanuel Adebayor</td><td>2006–2009</td><td>2009–2012</td><td class="win-c">Notorious celebration at the Emirates, 2009</td></tr>
+        <tr><td>Kolo Touré</td><td>2001–2009</td><td>2009–2013</td><td>Sold alongside Adebayor</td></tr>
+        <tr><td>Samir Nasri</td><td>2008–2011</td><td>2011–2017</td><td class="win-c">Abused by Arsenal fans for years after his transfer</td></tr>
+        <tr><td>Gaël Clichy</td><td>2003–2011</td><td>2011–2017</td><td>Won PL with both clubs</td></tr>
+        <tr><td>Bacary Sagna</td><td>2007–2014</td><td>2014–2017</td><td>Contract ran out, less controversy</td></tr>
+        <tr><td>Nicolas Anelka</td><td>1997–1999</td><td>2002–2005</td><td>Left Arsenal controversially; City later in career</td></tr>
+        <tr><td>Patrick Vieira</td><td>1996–2004</td><td>2010–2011</td><td>Arsenal legend; brief City stint at the end</td></tr>
+        <tr><td>Oleksandr Zinchenko</td><td>2022–2026</td><td>2017–2022</td><td class="win-a">Standing ovation at Etihad on return</td></tr>
+        <tr><td>Gabriel Jesus</td><td>2022–present</td><td>2017–2022</td><td class="win-a">Reunited with Arteta at Arsenal</td></tr>
+        <tr><td>Raheem Sterling</td><td>2024–2025</td><td>2015–2022</td><td>Brief Arsenal stint on loan</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:16px;font-size:13px;color:var(--muted)">The recent flow has reversed: Zinchenko and Jesus moved from City <em>to</em> Arsenal, widely seen as Arteta leveraging his City connections to strengthen his squad.</p>
+</section>
+
+<!-- FULL HISTORY TABLE -->
+<section id="history">
+  <h2>📜 Full PL Match History</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Date</th><th>Home</th><th>Score</th><th>Away</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>28 Sep 1992</td><td>Arsenal</td><td class="win-a">1–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>2</td><td>16 Jan 1993</td><td>Man City</td><td class="win-a">0–1</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>3</td><td>16 Oct 1993</td><td>Arsenal</td><td class="draw">0–0</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>4</td><td>15 Jan 1994</td><td>Man City</td><td class="draw">0–0</td><td>Arsenal</td><td class="draw">Draw</td></tr>
+        <tr><td>5</td><td>20 Aug 1994</td><td>Arsenal</td><td class="win-a">3–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>6</td><td>12 Dec 1994</td><td>Man City</td><td class="win-a">1–2</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>7</td><td>5 Mar 1996</td><td>Arsenal</td><td class="win-a">3–1</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>8</td><td>10 Sep 1995</td><td>Man City</td><td class="win-a">0–1</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td colspan="6" style="text-align:center;color:var(--muted);font-style:italic;padding:12px">City relegated 1995–96 · absent from PL 1996–2000</td></tr>
+        <tr><td>9</td><td>28 Oct 2000</td><td>Arsenal</td><td class="win-a">5–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>10</td><td>11 Apr 2001</td><td>Man City</td><td class="win-a">0–4</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td colspan="6" style="text-align:center;color:var(--muted);font-style:italic;padding:12px">City relegated again · absent 2001–02</td></tr>
+        <tr><td>11</td><td>10 Sep 2002</td><td>Arsenal</td><td class="win-a">2–1</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>12</td><td>22 Feb 2003</td><td>Man City</td><td class="win-a">1–5</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>13</td><td>31 Aug 2003</td><td>Man City</td><td class="win-a">1–2</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>14</td><td>1 Feb 2004</td><td>Arsenal</td><td class="win-a">2–1</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>15</td><td>25 Sep 2004</td><td>Man City</td><td class="win-a">0–1</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>16</td><td>4 Jan 2005</td><td>Arsenal</td><td class="draw">1–1</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>17</td><td>22 Oct 2005</td><td>Arsenal</td><td class="win-a">1–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>18</td><td>4 May 2006</td><td>Man City</td><td class="win-a">1–3</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>19</td><td>26 Aug 2006</td><td>Man City</td><td class="win-c">1–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>20</td><td>17 Apr 2007</td><td>Arsenal</td><td class="win-a">3–1</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>21</td><td>25 Aug 2007</td><td>Arsenal</td><td class="win-a">1–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>22</td><td>2 Feb 2008</td><td>Man City</td><td class="win-a">1–3</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>23</td><td>22 Nov 2008</td><td>Man City</td><td class="win-c">3–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>24</td><td>4 Apr 2009</td><td>Arsenal</td><td class="win-a">2–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>25</td><td>12 Sep 2009</td><td>Man City</td><td class="win-c">4–2</td><td>Arsenal</td><td class="win-c">City W ⚡</td></tr>
+        <tr><td>26</td><td>24 Apr 2010</td><td>Arsenal</td><td class="draw">0–0</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>27</td><td>24 Oct 2010</td><td>Man City</td><td class="win-a">0–3</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>28</td><td>5 Jan 2011</td><td>Arsenal</td><td class="draw">0–0</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>29</td><td>18 Dec 2011</td><td>Man City</td><td class="win-c">1–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>30</td><td>8 Apr 2012</td><td>Arsenal</td><td class="win-a">1–0</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>31</td><td>23 Sep 2012</td><td>Man City</td><td class="draw">1–1</td><td>Arsenal</td><td class="draw">Draw</td></tr>
+        <tr><td>32</td><td>13 Jan 2013</td><td>Arsenal</td><td class="win-c">0–2</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>33</td><td>14 Dec 2013</td><td>Man City</td><td class="win-c">6–3</td><td>Arsenal</td><td class="win-c">City W 🔥</td></tr>
+        <tr><td>34</td><td>29 Mar 2014</td><td>Arsenal</td><td class="draw">1–1</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>35</td><td>18 Jan 2015</td><td>Man City</td><td class="win-c">0–2</td><td>Arsenal</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>36</td><td>13 Sep 2014</td><td>Arsenal</td><td class="draw">2–2</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>37</td><td>21 Dec 2015</td><td>Arsenal</td><td class="win-a">2–1</td><td>Man City</td><td class="win-a">Arsenal W</td></tr>
+        <tr><td>38</td><td>8 May 2016</td><td>Man City</td><td class="draw">2–2</td><td>Arsenal</td><td class="draw">Draw</td></tr>
+        <tr><td colspan="6" style="text-align:center;color:#EF0107;font-style:italic;padding:12px">▼ City's 12-game unbeaten run begins ▼</td></tr>
+        <tr><td>39</td><td>18 Dec 2016</td><td>Man City</td><td class="win-c">2–1</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>40</td><td>2 Apr 2017</td><td>Arsenal</td><td class="draw">2–2</td><td>Man City</td><td class="draw">Draw</td></tr>
+        <tr><td>41</td><td>5 Nov 2017</td><td>Man City</td><td class="win-c">3–1</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>42</td><td>1 Mar 2018</td><td>Arsenal</td><td class="win-c">0–3</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>43</td><td>12 Aug 2018</td><td>Arsenal</td><td class="win-c">0–2</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>44</td><td>3 Feb 2019</td><td>Man City</td><td class="win-c">3–1</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>45</td><td>15 Dec 2019</td><td>Arsenal</td><td class="win-c">0–3</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>46</td><td>17 Jun 2020</td><td>Man City</td><td class="win-c">3–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>47</td><td>17 Oct 2020</td><td>Man City</td><td class="win-c">1–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>48</td><td>21 Feb 2021</td><td>Arsenal</td><td class="win-c">0–1</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>49</td><td>28 Aug 2021</td><td>Man City</td><td class="win-c">5–0</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td>50</td><td>1 Jan 2022</td><td>Arsenal</td><td class="win-c">1–2</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>51</td><td>15 Feb 2023</td><td>Arsenal</td><td class="win-c">1–3</td><td>Man City</td><td class="win-c">City W</td></tr>
+        <tr><td>52</td><td>26 Apr 2023</td><td>Man City</td><td class="win-c">4–1</td><td>Arsenal</td><td class="win-c">City W</td></tr>
+        <tr><td colspan="6" style="text-align:center;color:#4caf50;font-style:italic;padding:12px">▲ Arsenal end the run — 8 Oct 2023 ▲</td></tr>
+        <tr><td>53</td><td>8 Oct 2023</td><td>Arsenal</td><td class="win-a">1–0</td><td>Man City</td><td class="win-a">Arsenal W ⭐</td></tr>
+        <tr><td>54</td><td>31 Mar 2024</td><td>Man City</td><td class="draw">0–0</td><td>Arsenal</td><td class="draw">Draw</td></tr>
+        <tr><td>55</td><td>22 Sep 2024</td><td>Man City</td><td class="draw">2–2</td><td>Arsenal</td><td class="draw">Draw †</td></tr>
+        <tr><td>56</td><td>2 Feb 2025</td><td>Arsenal</td><td class="win-a">5–1</td><td>Man City</td><td class="win-a">Arsenal W ⭐</td></tr>
+        <tr><td>57</td><td>21 Sep 2025</td><td>Arsenal</td><td class="draw">1–1</td><td>Man City</td><td class="draw">Draw</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:8px">† Stones equalised in the 98th minute. ⭐ = landmark result. 🔥 = record scoreline. ⚡ = most memorable/controversial moment.</p>
+</section>
+
+<!-- FUTURE -->
+<section id="future">
+  <h2>🔮 What's Next</h2>
+
+  <div class="callout green">
+    <strong>22 March 2026 — EFL Cup Final · Wembley</strong><br>
+    Arsenal vs Manchester City. The first competitive cup final between the two sides since the 2018 EFL Cup Final (City won 3-0). City have won 8 League Cups — the most of any English club. Arsenal have won 2. This is the defining match of the 2025-26 season for both clubs, and a crucial moment in the Arteta-Guardiola rivalry.
+  </div>
+
+  <div class="callout city">
+    <strong>18 April 2026 — Premier League · Etihad Stadium</strong><br>
+    The second PL meeting of the 2025-26 season. Arsenal drew 1-1 at the Emirates in September 2025. The Etihad fixture has historically favoured City but Arsenal have been more competitive at City since 2023.
+  </div>
+
+  <h3>Competition Framework (to be added)</h3>
+  <p style="color:var(--muted)">This report covers the Premier League era only. Data for FA Cup, EFL Cup, Community Shield, and European competitions between the clubs is available as a separate addition.</p>
+  <div class="callout">
+    <strong>Cup record (all-time PL era):</strong>
+    FA Cup: W4 D0 L2 (Arsenal advantage) · EFL Cup: W5 D1 L4 (Arsenal slight edge) · Community Shield: W2 D1 L0 (Arsenal) · 2018 EFL Cup Final: City 3-0 Arsenal · 2026 EFL Cup Final: TBD
+  </div>
+</section>
+
+<section>
+  <h2>📚 Sources</h2>
+  <ul style="color:var(--muted);padding-left:20px;line-height:2">
+    <li>Wikipedia — Arsenal F.C.–Manchester City F.C. rivalry (complete PL match history)</li>
+    <li>Premier League official statistics</li>
+    <li>FBref.com — Squad and scoring data</li>
+    <li>Transfermarkt — All-competition records</li>
+    <li>11v11.com — Complete results database</li>
+  </ul>
+</section>
+
+</div>
+
+<footer>
+  Report compiled by <strong>Dwight 🌱</strong> · March 2026 · Data accurate to 21 September 2025<br>
+  ⚽ EFL Cup Final pending: Arsenal v Man City · 22 March 2026 · Wembley
+</footer>
+
+</body>
+</html>
